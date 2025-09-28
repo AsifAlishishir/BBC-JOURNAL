@@ -17,6 +17,24 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <h1>লাইভ,খাগড়াছড়ির পরিস্থিতি থমথমে, বহাল আছে ১৪৪ ধারা</h1>
+    <header>
+      <div class="bg-red-600 py-5">
+        <div class="max-w-7xl mx-auto px-5">
+          <img class="invert" src="./assets/logo.svg" alt="" />
+        </div>
+      </div>
+
+      <nav class="border-b border-gray-200">
+        <ul
+          id="categoryContainer"
+          class="flex gap-10 text-lg max-w-7xl mx-auto px-5 py-1"
+        ></ul>
+      </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-5 mt-6">
+      <div id="newsContainer" class="grid grid-cols-4 gap-5 h-full"></div>
+    </main>
+    <script src="./script.js"></script>
   </body>
 </html>
