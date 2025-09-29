@@ -2,7 +2,8 @@ const categoryContainer = document.getElementById("categoryContainer");
 const newsContainer = document.getElementById("newsContainer");
 const bookMarkContainer = document.getElementById("bookMarkContainer");
 const bookMarkCount = document.getElementById("bookMarkCount");
-
+const modalContainer = document.getElementById("modalContainer");
+const newsDetailsModal = document.getElementById("news-details-modal");
 let bookMarks = [];
 
 const loadCategory = () => {
@@ -55,6 +56,10 @@ const loadNewsByCategory = (categoryId) => {
 };
 
 const showNewsByCategory = (articles) => {
+  if (articles.length === 0) {
+    showEmptyMessage();
+    return;
+  }
   newsContainer.innerHTML = "";
   articles.forEach((article) => {
     // console.log(article);
@@ -66,6 +71,7 @@ const showNewsByCategory = (articles) => {
         <h2 class="font-extrabold pb-2">${article.title}</h2>
         <p class="text-sm">${article.time}</p>
         <button class="btn">BookMark</button>
+        <button class="btn">View Details</button>
         </div>
       </div>`;
   });
@@ -76,6 +82,11 @@ newsContainer.addEventListener("click", (e) => {
   // console.log(e.target.innerText);
   if (e.target.innerText === "BookMark") {
     handleBookmarks(e);
+    // console.log("button Clicked");
+  }
+
+  if (e.target.innerText === "View Details") {
+    handleViewDetails(e);
     // console.log("button Clicked");
   }
 });
@@ -91,6 +102,29 @@ const handleBookmarks = (e) => {
   });
 
   showBookmarks(bookMarks);
+};
+
+const handleViewDetails = (e) => {
+  const id = e.target.parentNode.id;
+  fetch(`https://news-api-fs.vercel.app/api/news/${id}`)
+    .then((res) => res.json())
+    .then((data) => {
+      // console.log(data);
+      showDetailsNews(data.article);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  // console.log(id);
+};
+
+const showDetailsNews = (article) => {
+  // console.log(article);
+  newsDetailsModal.showModal();
+  modalContainer.innerHTML = `
+  <h1>${article.title}</h1>
+<img src="${article.images[1].url}" alt="" />
+<p class="text-justify">${article.content.join("")}</p>`;
 };
 
 const showBookmarks = (bookMarks) => {
@@ -127,6 +161,11 @@ const showLoading = () => {
 
 const showError = () => {
   newsContainer.innerHTML = `<div class="bg-red-500 p-3">Something Went Wrong!</div>
+      </div>`;
+};
+
+const showEmptyMessage = () => {
+  newsContainer.innerHTML = `<div class="bg-orange-500 p-3">Something Went Wrong!</div>
       </div>`;
 };
 
