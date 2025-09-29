@@ -32,8 +32,20 @@
       </nav>
     </header>
 
-    <main class="max-w-7xl mx-auto px-5 mt-6">
-      <div id="newsContainer" class="grid grid-cols-4 gap-5 h-full"></div>
+    <main class="max-w-7xl mx-auto px-5 mt-6 grid grid-cols-4 gap-5">
+      <div id="newsContainer" class="grid grid-cols-3 col-span-3 gap-5 h-full">
+        <div class="bg-red-500 p-3">Loading.....</div>
+      </div>
+      <div class="col-span-1 border border-gray-300 rounded-lg overflow-hidden">
+        <div
+          class="bg-red-500 text-white p-3 mb-2 text-center flex justify-between"
+        >
+          <h1>Bookmarks</h1>
+          <p id="bookMarkCount">0</p>
+        </div>
+
+        <div id="bookMarkContainer"></div>
+      </div>
     </main>
     <script src="./script.js"></script>
   </body>
